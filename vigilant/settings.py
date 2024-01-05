@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-^$&$t4wr4he3#8xav(5iua_5*95u*7l5*0tiwuhf2nt$b98%rs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,7 +38,64 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api_monitor',
+    "drf_spectacular",
 ]
+
+# REST Framework Settings
+# https://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.MultiPartParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.JSONParser",
+    ],
+    # "DEFAULT_AUTHENTICATION_CLASSES": [
+    #     "rest_framework.authentication.SessionAuthentication",
+    # ],
+    # "DEFAULT_PERMISSION_CLASSES": [
+    #     "rest_framework.permissions.IsAuthenticated",
+    # ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "rest_framework.filters.OrderingFilter",
+        "rest_framework.filters.SearchFilter",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",
+    # Versioning
+    # "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+    "DEFAULT_VERSION": "v1",
+    "ALLOWED_VERSIONS": ["v1"],
+    "VERSION_PARAM": "version",
+    # Pagination
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 25,
+    "PAGE_SIZE_QUERY_PARAM": "page_size",
+    "MAX_PAGE_SIZE": 500,
+    # Testing
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+
+
+# DRF Spectacular Settings (OpenAPI Schema)
+# https://drf-spectacular.readthedocs.io/en/latest/settings.html
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "API Vigilant",
+    "SWAGGER_UI_SETTINGS": {"deepLinking": True, "persistAuthorization": True},
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_PERMISSIONS": [],
+    "SERVE_AUTHENTICATION": [],
+    "COMPONENT_SPLIT_REQUEST": True,
+    "COMPONENT_NO_READ_ONLY_REQUIRED": False,
+    "GENERIC_ADDITIONAL_PROPERTIES": None,
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
