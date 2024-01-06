@@ -9,6 +9,8 @@ djangorestframework = "*"
 drf-spectacular = "*"
 requests = "*"
 typer = {extras = ["all"], version = "*"}
+black = "*"
+flake8 = "*"
 
 [dev-packages]
 
