@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 drf-spectacular = "*"
 requests = "*"
+typer = {extras = ["all"], version = "*"}
 
 [dev-packages]
 
